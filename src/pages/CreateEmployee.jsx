@@ -6,14 +6,19 @@ export function CreateEmployee() {
     const dispatch = useDispatch()
 
     const handleSubmit = (employeedata) => {
+        console.log('formulaire', employeedata)
         dispatch(addEmployee(employeedata))
     }
     return (
-        <>
-            <h1>HRnet</h1>
-            <NavLink to="/EmployeeList">View Current Employees</NavLink>
-            <h2>Create Employee</h2>
-            <Form onSubmit={handleSubmit} />
-        </>
+        <div className="main">
+            <div className="header">
+                <h1>HRnet</h1>
+                <NavLink to="/EmployeeList">View Current Employees</NavLink>
+            </div>
+            <div className="container">
+                <h2>Create Employee</h2>
+                <Form onSubmit={handleSubmit} />
+            </div>
+        </div>
     )
 }
