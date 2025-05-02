@@ -1,133 +1,121 @@
 import states from '../data/states'
 import { useState } from 'react'
-import DatePicker from 'react-datepicker'
-import 'react-datepicker/dist/react-datepicker.css'
-import Select from 'react-dropdown-select'
-
+import Input from './Input'
+import Select from './Select'
 const Departments = [
-    { label: 'Sales', value: 'Sales' },
-    { label: 'Marketing', value: 'Marketing' },
-    { label: 'Engineering', value: 'Engineering' },
-    { label: 'Human Resources', value: 'Human Resources' },
-    { label: 'Legal', value: 'Legal' },
+    'Sales',
+    'Marketing',
+    'Engineering',
+    'Human Resources',
+    'Legal',
 ]
 
 export default function Form({ onSubmit }) {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [birthDate, setBirthDate] = useState('')
-    const [startDate, setStartDate] = useState('')
-    const [street, setStreet] = useState('')
-    const [city, setCity] = useState('')
-    const [state, setState] = useState(states[0].abbreviation)
-    const [zipCode, setZipCode] = useState('')
-    const [department, setDepartment] = useState(Departments[0].label)
+    const initialFormData = {
+        firstName: '',
+        lastName: '',
+        birthDate: '',
+        startDate: '',
+        street: '',
+        city: '',
+        state: states[0].abbreviation,
+        zipCode: '',
+        department: Departments[0],
+    }
+    const [formData, setFormData] = useState(initialFormData)
 
+    const handleChange = (key, inputValue) => {
+        setFormData((rest) => ({ ...rest, [key]: inputValue }))
+    }
     const handleSubmit = (e) => {
         e.preventDefault()
-        onSubmit({
-            firstName,
-            lastName,
-            birthDate,
-            startDate,
-            street,
-            city,
-            state,
-            zipCode,
-            department,
-        })
-        setFirstName('')
-        setLastName('')
-        setBirthDate(null)
-        setStartDate(null)
-        setStreet('')
-        setCity('')
-        setState('')
-        setZipCode('')
-        setDepartment('')
+        onSubmit(formData)
+        setFormData(initialFormData)
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="firstName">First Name</label>
-                <input
+        <>
+            <form onSubmit={handleSubmit}>
+                <Input
                     id="firstName"
+                    label="First Name"
                     type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
+                    value={formData.firstName}
+                    onChange={handleChange}
                 />
-            </div>
-            <div>
-                <label htmlFor="lastName">Last Name</label>
-                <input
+
+                <Input
                     id="lastName"
+                    label="Last Name"
                     type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                />
-            </div>
-            <div>
-                <label htmlFor="birthDay">Date of Birth</label>
-                <DatePicker
-                    id="birthDay"
-                    selected={birthDate}
-                    onChange={(date) => setBirthDate(date)}
-                />
-            </div>
-            <div>
-                <label htmlFor="startDay">Start Date</label>
-                <DatePicker
-                    id="startDay"
-                    selected={startDate}
-                    onChange={(date) => setStartDate(date)}
-                />
-            </div>
-            <fieldset className="address">
-                <legend>Address</legend>
-
-                <label htmlFor="street">Street</label>
-                <input
-                    id="street"
-                    type="text"
-                    value={street}
-                    onChange={(e) => setStreet(e.target.value)}
+                    value={formData.lastName}
+                    onChange={handleChange}
                 />
 
-                <label htmlFor="city">City</label>
-                <input
-                    id="city"
-                    type="text"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
+                <Input
+                    id="birthDate"
+                    type="date"
+                    label="Date of Birth"
+                    value={formData.birthDate}
+                    onChange={handleChange}
+                    required
+                />
+                <Input
+                    id="startDate"
+                    type="date"
+                    label="Start Date"
+                    value={formData.startDate}
+                    onChange={handleChange}
+                    required
                 />
 
-                <label htmlFor="state">State</label>
+                <fieldset className="address">
+                    <legend>Address</legend>
+                    <Input
+                        id="street"
+                        type="text"
+                        label="Street"
+                        value={formData.street}
+                        onChange={handleChange}
+                        required
+                    />
+                    <Input
+                        id="city"
+                        type="text"
+                        label="City"
+                        value={formData.city}
+                        onChange={handleChange}
+                        required
+                    />
+                    <Select
+                        id="state"
+                        label="State"
+                        value={formData.state}
+                        data={states}
+                        keyValue="abbreviation"
+                        onChange={handleChange}
+                    />
+
+                    <Input
+                        id="zipCode"
+                        type="number"
+                        label="zip Code"
+                        value={formData.zipCode}
+                        onChange={handleChange}
+                        required
+                    />
+                </fieldset>
                 <Select
-                    options={states}
-                    values={[states[0]]}
-                    labelField="name"
-                    valueField="abbreviation"
-                    name="states"
-                    id="state"
-                    onChange={(values) => setState(values[0].abbreviation)}
+                    id="department"
+                    label="Department"
+                    value={formData.department}
+                    data={Departments}
+                    onChange={handleChange}
                 />
-                <label htmlFor="zip-code">Zip Code</label>
-                <input
-                    id="zip-code"
-                    type="number"
-                    value={zipCode}
-                    onChange={(e) => setZipCode(e.target.value)}
-                />
-                <label htmlFor="department">Departement</label>
-                <Select
-                    options={Departments}
-                    name="department"
-                    id="departement"
-                    values={[Departments[0]]}
-                    onChange={(values) => setDepartment(values[0].label)}
-                />
-            </fieldset>
-            <button type="submit">Save</button>
-        </form>
+
+                <button type="submit" className="button-submit">
+                    Save
+                </button>
+            </form>
+        </>
     )
 }
