@@ -51,7 +51,6 @@ export default function EmployeeTable({ data, columns }) {
     }
     return (
         <div>
-            <h1>Current Employees</h1>
             <div>
                 <input
                     type="text"
