@@ -35,7 +35,7 @@ Les audits ont été réalisés avec l’outil Lighthouse dans Chrome DevTools, 
 -   Le plugin jQuery **menu déroulant** a été remplacé par la balise native html <select>
 -   Le plugin jQuery **fenêtre de modale** a été par la **Création d’un plugin Modal React personnalisé**, publié sur npm pour le rendre réutilisable dans d’autres projets.
 
-# 📋 Installation et lancement
+## 📋 Installation et lancement
 
 # Cloner le projet
 
@@ -53,5 +53,3 @@ npm run dev
 # Créer un build de production
 
 npm run build
-
-## 🔍 Améliorations apportées
