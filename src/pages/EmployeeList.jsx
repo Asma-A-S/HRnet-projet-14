@@ -1,9 +1,9 @@
 import { useSelector } from 'react-redux'
 import mockEmployees from '../data/mockEmployees.json'
-//import DataTable from 'react-data-table-component'
-import { NavLink } from 'react-router-dom'
-import EmployeeTable from '../Components/Table'
+import Table from '../Components/Table'
+import Header from '../Components/Header'
 
+//définition des colonnes du tableau des employés
 const columns = [
     { label: 'First Name', key: 'firstName' },
     { label: 'Last Name', key: 'lastName' },
@@ -15,14 +15,28 @@ const columns = [
     { label: 'State', key: 'state' },
     { label: 'Zip Code', key: 'zipCode' },
 ]
+
+/**
+ * EmployeeList – Page d’affichage des employés existants.
+ *
+ * Ce composant :
+ * - Affiche un en-tête avec un lien vers la page d’accueil
+ * - Récupère la liste des employés depuis le store Redux
+ * et l'affiche dans un tableau personnalisé
+ *
+ * @returns {JSX.Element} Composant de page EmployeeList
+ */
 export function EmployeeList() {
     const employees = useSelector((state) => state.employee.employees)
-    console.log(employees)
     return (
-        <>
-            <h1>page liste des employés</h1>
-            <NavLink to="/">Home</NavLink>
-            <EmployeeTable data={employees} columns={columns} />
-        </>
+        <div className="main">
+            <Header link="/" page="Home" />
+            <div className="container">
+                <h1 className="title">Current Employees</h1>
+                <div className="main-list-table">
+                    <Table data={employees} columns={columns} />
+                </div>
+            </div>
+        </div>
     )
 }

@@ -1,4 +1,11 @@
 import states from '../data/states'
+
+/**
+ * Configuration des champs pour le formulaire de création d'employé.
+ * Chaque objet représente un champ à afficher.
+ *
+ *
+ */
 export const employeeFields = [
     {
         id: 'firstName',
@@ -32,6 +39,13 @@ export const employeeFields = [
         keyValue: 'name',
     },
 ]
+
+/**
+ * Valeurs initiales du formulaire pour chaque champ employé.
+ * Sert à initialiser le state local du formulaire.
+ *
+ *
+ */
 
 export const initialFormData = {
     firstName: '',
