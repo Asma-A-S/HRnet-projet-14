@@ -37,19 +37,18 @@ Les audits ont été réalisés avec l’outil Lighthouse dans Chrome DevTools, 
 
 ## 📋 Installation et lancement
 
+```bash
 # Cloner le projet
-
 git clone https://github.com/Asma-A-S/HRnet-projet-14.git
 cd hrnet-react
 
 # Installer les dépendances
-
 npm install
 
 # Lancer l'application en mode développement
-
 npm run dev
 
 # Créer un build de production
-
 npm run build
+
+```
