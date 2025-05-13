@@ -1,12 +1,55 @@
-# React + Vite
+# HRnet - Application de gestion des employés
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Bienvenue dans HRnet, une application React permettant de gérer les dossiers des employés au sein d'une entreprise. Ce projet a été réalisé dans le cadre de ma formation OpenClassrooms (parcours Développeur Front-End).
 
-Currently, two official plugins are available:
+## 🚀 Fonctionnalités principales
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   Création de nouveaux employés via un formulaire
+-   Affichage de la liste des employés sous forme de tableau
+-   Fonctionnalités de recherche, tri et pagination
+-   Performance optimisée (remplacement de modal par une modale React maison)
+-   Respect des bonnes pratiques d’accessibilité
 
-## Expanding the ESLint configuration
+## 📦 Stack technique
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+-   React
+-   React Router
+-   CSS
+-   Lighthouse pour l'audit
+-   ESLint / Prettier pour la qualité de code
+
+## 🧪 Audits Lighthouse
+
+Les audits ont été réalisés avec l’outil Lighthouse dans Chrome DevTools, sur la version **build** de l'application.
+
+| Audit       | Score |
+| ----------- | ----- |
+| Performance | 100   |
+
+📌 _Les 4 rapports Lighthouse sont disponibles dans le dossier `/docs/lighthouse-reports`._
+
+## 🔍 Améliorations apportées
+
+-   Le plugin jQuery **DataTables** a été remplacé par un composant React personnalisé pour améliorer les performances.
+-   Le plugin jQuery **sélection de date** a été remplacé par la balise native html <input type='date'>
+-   Le plugin jQuery **menu déroulant** a été remplacé par la balise native html <select>
+-   Le plugin jQuery **fenêtre de modale** a été par la **Création d’un plugin Modal React personnalisé**, publié sur npm pour le rendre réutilisable dans d’autres projets.
+
+## 📋 Installation et lancement
+
+# Cloner le projet
+
+git clone https://github.com/Asma-A-S/HRnet-projet-14.git
+cd hrnet-react
+
+# Installer les dépendances
+
+npm install
+
+# Lancer l'application en mode développement
+
+npm run dev
+
+# Créer un build de production
+
+npm run build
