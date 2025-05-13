@@ -4,20 +4,20 @@ Bienvenue dans HRnet, une application React permettant de gérer les dossiers de
 
 ## 📋 Installation et lancement
 
-# Cloner le projet
+### Cloner le projet
 
-git clone https://github.com/Asma-A-S/HRnet-projet-14.git
-cd hrnet-react
+-   git clone https://github.com/Asma-A-S/HRnet-projet-14.git
+-   cd hrnet-react
 
-# Installer les dépendances
+### Installer les dépendances
 
 npm install
 
-# Lancer l'application en mode développement
+### Lancer l'application en mode développement
 
 npm run dev
 
-# Créer un build de production
+### Créer un build de production
 
 npm run build
 
