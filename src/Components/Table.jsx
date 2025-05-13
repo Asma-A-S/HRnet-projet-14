@@ -1,28 +1,43 @@
 import { useState } from 'react'
 import SortArrows from './SortArrows'
 import Pagination from './Pagination'
+
 const ITEMS_PER_PAGE = [10, 25, 50, 100]
 
-export default function EmployeeTable({ data, columns }) {
+/**
+ * Composant Table générique pour afficher, filtrer, trier et paginer des données tabulaires.
+ *
+ * @component
+ * @param {Object} props - Les propriétés du composant.
+ * @param {Array<Object>} props.data - Les données à afficher dans le tableau.
+ * @param {Array<{ key: string, label: string }>} props.columns - Les colonnes à afficher, avec `key` (nom du champ) et `label` (intitulé affiché).
+ *
+ * @returns {JSX.Element} Un tableau avec recherche, tri et pagination.
+ */
+export default function Table({ data, columns }) {
     const [search, setSearch] = useState('')
     const [currentPage, setCurrentPage] = useState(1)
     const [sortKey, setSortKey] = useState(null)
     const [sortDirection, setSortDirection] = useState('asc')
     const [itemsPerPage, setItemsPerPage] = useState(10)
-    //filtrer les employees avec input
-    const getFilteredEmployees = () => {
-        console.log('data', data)
+
+    /**
+     * Filtrer les données en fonction du terme de recherche
+     */
+    const getFilteredData = () => {
         return data.filter((emp) =>
             Object.values(emp).some((val) =>
                 String(val).toLowerCase().includes(search.toLowerCase())
             )
         )
     }
-    //tri ascendant ou descendant
-    const getSortedEmployees = (employees) => {
-        if (!sortKey) return employees
+    /**
+     * Trier les données selon la clé et la direction spécifiées
+     */
+    const getSortedData = (data) => {
+        if (!sortKey) return data
 
-        return [...employees].sort((a, b) => {
+        return [...data].sort((a, b) => {
             const aVal = a[sortKey]
             const bVal = b[sortKey]
 
@@ -31,27 +46,32 @@ export default function EmployeeTable({ data, columns }) {
             return 0
         })
     }
+    console.time('Rendering table')
+    // Appliquer les filtres et le tri
+    const filteredData = getFilteredData()
+    const sortedData = getSortedData(filteredData)
+    const totalPages = Math.ceil(sortedData.length / itemsPerPage)
 
-    const filteredEmployees = getFilteredEmployees()
-    const sortedEmployees = getSortedEmployees(filteredEmployees)
-    const totalPages = Math.ceil(sortedEmployees.length / itemsPerPage)
-
-    const paginatedEmployees = sortedEmployees.slice(
+    // Sélection des données à afficher sur la page actuelle
+    const paginatedData = sortedData.slice(
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     )
-
+    console.timeEnd('Rendering table')
+    // Gestion du tri à partir des flèches
     const handleSort = (key, direction) => {
         setSortKey(key)
         setSortDirection(direction)
     }
+    // Modification du nombre d'éléments affichés par page
     const handleItemsPerPage = (e) => {
         setItemsPerPage(Number(e.target.value))
         setCurrentPage(1)
     }
     return (
-        <div>
-            <div>
+        <>
+            {/* Zone de recherche et sélection du nombre d'éléments par page */}
+            <div className="table-search">
                 <input
                     type="text"
                     placeholder="Search..."
@@ -70,7 +90,11 @@ export default function EmployeeTable({ data, columns }) {
                     }}
                 >
                     <span>Show</span>
-                    <select value={itemsPerPage} onChange={handleItemsPerPage}>
+                    <select
+                        value={itemsPerPage}
+                        onChange={handleItemsPerPage}
+                        aria-label="Items per page"
+                    >
                         {ITEMS_PER_PAGE.map((items) => (
                             <option key={items}>{items}</option>
                         ))}
@@ -78,6 +102,7 @@ export default function EmployeeTable({ data, columns }) {
                     <span>entries</span>
                 </div>
             </div>
+            {/* Tableau principal */}
             <table border="1" cellPadding="5" cellSpacing="0">
                 <thead>
                     <tr>
@@ -95,12 +120,12 @@ export default function EmployeeTable({ data, columns }) {
                     </tr>
                 </thead>
                 <tbody>
-                    {paginatedEmployees.length === 0 ? (
+                    {paginatedData.length === 0 ? (
                         <tr>
                             <td colSpan={columns.length}>No data found.</td>
                         </tr>
                     ) : (
-                        paginatedEmployees.map((item, index) => (
+                        paginatedData.map((item, index) => (
                             <tr key={index}>
                                 {columns.map((col) => (
                                     <td key={col.key}>{item[col.key]}</td>
@@ -110,13 +135,14 @@ export default function EmployeeTable({ data, columns }) {
                     )}
                 </tbody>
             </table>
+            {/* Pagination */}
             <Pagination
-                data={sortedEmployees}
+                data={sortedData}
                 currentPage={currentPage}
                 itemsPerPage={itemsPerPage}
                 totalPages={totalPages}
                 setPage={setCurrentPage}
             />
-        </div>
+        </>
     )
 }
