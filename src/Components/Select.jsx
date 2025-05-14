@@ -19,7 +19,7 @@ export default function Select({
     data,
     onChange,
     keyValue,
-    required = false,
+    required = true,
 }) {
     return (
         <>

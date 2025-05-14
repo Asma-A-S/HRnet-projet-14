@@ -20,7 +20,7 @@ export default function Input({
     value,
     type,
     onChange,
-    required = false,
+    required = true,
     autocomplete = 'off',
 }) {
     return (
