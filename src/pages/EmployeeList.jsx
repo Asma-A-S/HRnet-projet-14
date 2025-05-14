@@ -34,7 +34,7 @@ export function EmployeeList() {
             <div className="container">
                 <h1 className="title">Current Employees</h1>
                 <div className="main-list-table">
-                    <Table data={employees} columns={columns} />
+                    <Table data={mockEmployees} columns={columns} />
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import SortArrows from './SortArrows'
 import Pagination from './Pagination'
-
+import TableRow from './TableRow'
 const ITEMS_PER_PAGE = [10, 25, 50, 100]
 
 /**
@@ -126,11 +126,11 @@ export default function Table({ data, columns }) {
                         </tr>
                     ) : (
                         paginatedData.map((item, index) => (
-                            <tr key={index}>
-                                {columns.map((col) => (
-                                    <td key={col.key}>{item[col.key]}</td>
-                                ))}
-                            </tr>
+                            <TableRow
+                                key={index}
+                                item={item}
+                                columns={columns}
+                            />
                         ))
                     )}
                 </tbody>
