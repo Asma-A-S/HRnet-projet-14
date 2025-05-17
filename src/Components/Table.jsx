@@ -46,7 +46,6 @@ export default function Table({ data, columns }) {
             return 0
         })
     }
-    console.time('Rendering table')
     // Appliquer les filtres et le tri
     const filteredData = getFilteredData()
     const sortedData = getSortedData(filteredData)
@@ -57,7 +56,7 @@ export default function Table({ data, columns }) {
         (currentPage - 1) * itemsPerPage,
         currentPage * itemsPerPage
     )
-    console.timeEnd('Rendering table')
+
     // Gestion du tri à partir des flèches
     const handleSort = (key, direction) => {
         setSortKey(key)
